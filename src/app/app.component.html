@@ -3,3 +3,32 @@
   <!-- ^ Do not remove this element ^ -->
 </div>
  
+<h1>My Recipes</h1>
+
+<ng-container *ngIf="recipeList.length === 0; else showList">
+  There are no recipes to list
+</ng-container>
+
+<ng-template #showList>
+  <ul>
+    <ng-container *ngFor="let recipe of recipeList">
+      <li>{{recipe.recipeName}}</li>
+    </ng-container>
+  </ul>
+  
+</ng-template>
+
+<div id="add-recipe">
+  <ng-container *ngIf="showRecipeForm; else showButton">
+      <form [formGroup]="recipeForm" (ngSubmit)="addRecipe()">
+          <label for="recipeName">Recipe Name</label>
+          <input id="recipeName" name="recipeName" type="text" formControlName="recipeNameControl"><br>
+          <label for="recipeInstructions">Recipe Instructions</label>
+          <input id="recipeInstructions" name="recipeInstructions" type="text" formControlName="recipeInstructionControl"><br>
+          <button type="submit">Submit</button>
+      </form>
+  </ng-container>
+  <ng-template #showButton>
+      <button (click)="toggleShowRecipeForm()">Add Recipe</button>
+  </ng-template>    
+</div>
